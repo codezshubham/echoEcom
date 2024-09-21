@@ -420,7 +420,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                   {/* Login && Logout */}
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6 ">
+                <div className="flex flex-1 items-center justify-end space-x-6 ">
                   {auth.user ? (
                     <div>
                       <Avatar
@@ -485,12 +485,13 @@ export default function Navigation() {
                     <MagnifyingGlassIcon
                       className="h-6 w-6"
                       aria-hidden="true"
+                      
                     />
                   </p>
                 </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
+                <div className="flow-root lg:ml-6">
                   <Button
                     onClick={() => navigate("/cart")}
                     className="group -m-2 flex items-center p-2"

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, login } from "../../../Redux/Auth/Action";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useMediaQuery } from '@mui/material';
 
 export default function LoginUserForm({ handleNext }) {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function LoginUserForm({ handleNext }) {
   const [openSnackBar,setOpenSnackBar]=useState(false);
   const { auth } = useSelector((store) => store);
   const handleCloseSnakbar=()=>setOpenSnackBar(false);
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+
   useEffect(()=>{
     if(jwt){
       dispatch(getUser(jwt))
@@ -40,9 +43,9 @@ export default function LoginUserForm({ handleNext }) {
   };
 
   return (
-    <React.Fragment className=" shadow-lg ">
+    <div className=" shadow-lg" style={{ width: '90%', maxWidth: '600px', margin: '0 auto', padding: isSmallScreen ? '1rem' : '2rem' }}>
       <form className="w-full" onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               required
@@ -87,10 +90,10 @@ export default function LoginUserForm({ handleNext }) {
         </div>
       </div>
       <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
-        <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '90%' }}>
           {auth.error?auth.error:auth.user?"Register Success":""}
         </Alert>
       </Snackbar>
-    </React.Fragment>
+    </div>
   );
 }

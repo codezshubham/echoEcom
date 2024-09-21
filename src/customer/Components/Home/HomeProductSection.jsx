@@ -25,35 +25,43 @@ const HomeProductSection = ({ section, data }) => {
       itemsFit: "contain",
     },
     700: {
-      items: 3,
+      items: 2.5,
       itemsFit: "contain",
     },
     850: {
+      items: 3,
+      itemsFit: "contain",
+    },
+    1028: {
+      items: 3.5,
+      itemsFit: "contain",
+    },
+    1090: {
+      items: 4,
+      itemsFit: "contain",
+    },
+    1320: {
       items: 4.5,
       itemsFit: "contain",
     },
-    1366: {
+    1420: {
       items: 5,
       itemsFit: "contain",
     },
-    1450: {
+    1560: {
       items: 5.5,
       itemsFit: "contain",
     },
-    1800: {
+    1700: {
+      items: 6,
+      itemsFit: "contain",
+    },
+    1850: {
       items: 6.5,
       itemsFit: "contain",
     },
-    2100: {
-      items: 7.5,
-      itemsFit: "contain",
-    },
-    2400: {
-      items: 9.5,
-      itemsFit: "contain",
-    },
-    2800: {
-      items: 12.5,
+    2015: {
+      items: 7,
       itemsFit: "contain",
     },
   };
