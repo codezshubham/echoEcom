@@ -477,7 +477,7 @@ export default function Navigation() {
                 </div>
 
                 {/* Search */}
-                <div className="flex items-center lg:ml-6">
+                <div className="hidden md:block items-center lg:ml-6">
                 
                   <p onClick={()=>navigate("/products/search")} className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>

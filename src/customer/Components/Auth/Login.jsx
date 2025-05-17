@@ -1,99 +1,153 @@
-import * as React from "react";
-import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Snackbar,
+  Alert,
+  useMediaQuery,
+  Box,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, login } from "../../../Redux/Auth/Action";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useMediaQuery } from '@mui/material';
 
-export default function LoginUserForm({ handleNext }) {
+export default function LoginUserForm() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dispatch=useDispatch();
-  const jwt=localStorage.getItem("jwt");
-  const [openSnackBar,setOpenSnackBar]=useState(false);
   const { auth } = useSelector((store) => store);
-  const handleCloseSnakbar=()=>setOpenSnackBar(false);
-  const isSmallScreen = useMediaQuery('(max-width:600px)');
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const jwt = localStorage.getItem("jwt");
 
-  useEffect(()=>{
-    if(jwt){
-      dispatch(getUser(jwt))
-    }
-  
-  },[jwt])
-  
-  
-    useEffect(() => {
-      if (auth.user || auth.error) setOpenSnackBar(true)
-    }, [auth.user]);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    
-    const userData={
-      email: data.get("email"),
-      password: data.get("password"),
-     
-    }
-    console.log("login user",userData);
-  
-    dispatch(login(userData));
+  useEffect(() => {
+    if (jwt) dispatch(getUser(jwt));
+  }, [jwt, dispatch]);
 
+  useEffect(() => {
+    if (auth.user || auth.error) setOpenSnackBar(true);
+  }, [auth.user, auth.error]);
+
+  const handleClose = () => setOpenSnackBar(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    dispatch(
+      login({
+        email: data.get("email"),
+        password: data.get("password"),
+      })
+    );
   };
 
   return (
-    <div className=" shadow-lg" style={{ width: '90%', maxWidth: '600px', margin: '0 auto', padding: isSmallScreen ? '1rem' : '2rem' }}>
-      <form className="w-full" onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
+    <>
+      <Typography
+        variant="h4"
+        fontWeight={700}
+        color="primary.dark"
+        mb={1}
+        textAlign="center"
+        letterSpacing={1}
+      >
+        Welcome Back
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        color="text.secondary"
+        mb={4}
+        textAlign="center"
+      >
+        Please login to your account.
+      </Typography>
+
+      <form onSubmit={handleSubmit} noValidate>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
-              required
-              id="email"
-              name="email"
-              label="Email"
               fullWidth
-              autoComplete="given-name"
+              required
+              name="email"
+              label="Email Address"
+              variant="outlined"
+              size="medium"
+              type="email"
+              autoComplete="email"
+              InputLabelProps={{ sx: { fontWeight: "600" } }}
+              sx={{ borderRadius: 2 }}
             />
           </Grid>
+
           <Grid item xs={12}>
             <TextField
+              fullWidth
               required
-              id="password"
               name="password"
               label="Password"
-              fullWidth
-              autoComplete="given-name"
+              variant="outlined"
+              size="medium"
               type="password"
+              autoComplete="current-password"
+              InputLabelProps={{ sx: { fontWeight: "600" } }}
+              sx={{ borderRadius: 2 }}
             />
           </Grid>
 
           <Grid item xs={12}>
             <Button
-              className="bg-[#9155FD] w-full"
               type="submit"
+              fullWidth
               variant="contained"
               size="large"
-              sx={{padding:".8rem 0"}}
+              sx={{
+                background: "linear-gradient(90deg, #7b3fe4 0%, #9155fd 100%)",
+                fontWeight: "700",
+                fontSize: "1.1rem",
+                py: 1.4,
+                borderRadius: 3,
+                transition: "background 0.3s ease",
+                "&:hover": {
+                  background: "linear-gradient(90deg, #6a2ce4 0%, #7d3ffd 100%)",
+                },
+              }}
             >
-              Login
+              Log In
             </Button>
           </Grid>
         </Grid>
       </form>
-      <div className="flex justify-center flex-col items-center">
-         <div className="py-3 flex items-center">
-        <p className="m-0 p-0">don't have account ?</p>
-        <Button onClick={()=> navigate("/register")} className="ml-5" size="small">
-          Register
-        </Button>
-        </div>
-      </div>
-      <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
-        <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '90%' }}>
-          {auth.error?auth.error:auth.user?"Register Success":""}
+
+      <Box mt={4} textAlign="center">
+        <Typography variant="body2" color="text.secondary" sx={{ letterSpacing: 0.5 }}>
+          Don’t have an account?{" "}
+          <Button
+            onClick={() => navigate("/register")}
+            size="small"
+            sx={{ textTransform: "none", fontWeight: 300, color: "primary.main" }}
+          >
+            Register
+          </Button>
+        </Typography>
+      </Box>
+
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={auth.error ? "error" : "success"}
+          variant="filled"
+          sx={{ width: "100%", fontWeight: "600" }}
+        >
+          {auth.error ? auth.error : "Login successful!"}
         </Alert>
       </Snackbar>
-    </div>
+    </>
   );
 }

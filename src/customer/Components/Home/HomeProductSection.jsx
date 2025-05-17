@@ -1,140 +1,61 @@
-import AliceCarousel from "react-alice-carousel";
+import React, { useRef } from "react";
 import HomeProductCard from "./HomeProductCard";
-import { Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useState } from "react";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const HomeProductSection = ({ section, data }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef();
 
-  const slidePrev = () => setActiveIndex(activeIndex - 1);
-  const slideNext = () => setActiveIndex(activeIndex + 1);
-  const syncActiveIndex = ({ item }) => setActiveIndex(item);
-
-  const responsive = {
-    0:{
-      items: 1,
-      itemsFit: "contain"
-    },
-    436:{
-      items: 1.5,
-      itemsFit: "contain"
-    },
-    568: {
-      items: 2,
-      itemsFit: "contain",
-    },
-    700: {
-      items: 2.5,
-      itemsFit: "contain",
-    },
-    850: {
-      items: 3,
-      itemsFit: "contain",
-    },
-    1028: {
-      items: 3.5,
-      itemsFit: "contain",
-    },
-    1090: {
-      items: 4,
-      itemsFit: "contain",
-    },
-    1320: {
-      items: 4.5,
-      itemsFit: "contain",
-    },
-    1420: {
-      items: 5,
-      itemsFit: "contain",
-    },
-    1560: {
-      items: 5.5,
-      itemsFit: "contain",
-    },
-    1700: {
-      items: 6,
-      itemsFit: "contain",
-    },
-    1850: {
-      items: 6.5,
-      itemsFit: "contain",
-    },
-    2015: {
-      items: 7,
-      itemsFit: "contain",
-    },
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({
+      left: -300,
+      behavior: "smooth",
+    });
   };
 
-  const items = data?.slice(0, 20).map((item) => (
-    <div className="">
-     
-      <HomeProductCard product={item}/>
-    </div>
-  ));
-
-  // const slideInFromRight = (t) => {
-  //   return `translateX(${100 - t * 100}%)`;
-  // };
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({
+      left: 300,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <div className="relative px-4 sm:px-6 lg:px-8 ">
-      <h2 className="text-2xl font-extrabold text-gray-900 py-5">{section}</h2>
-      <div className="relative border px-5 h-auto">
-        <AliceCarousel
-          disableButtonsControls
-          disableDotsControls
-          mouseTracking
-          items={items}
-          activeIndex={activeIndex}
-          responsive={responsive}
-          onSlideChanged={syncActiveIndex}
-          animationType="fadeout"
-          animationDuration={2000}
-        />
-        {activeIndex !== items.length - 5 && (
-          <Button
-            onClick={slideNext}
-            variant="contained"
-            className="z-40 bg-[]"
-            sx={{
-              position: "absolute",
-              top: "8rem",
-              right: "0rem",
-              transform: "translateX(50%) rotate(90deg)",
-            }}
-            color="white"
-            aria-label="next"
+    <section className="w-full px-6 py-12 bg-gradient-to-b from-white to-gray-50">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-extrabold text-gray-800">{section}</h2>
+        <div className="flex gap-2">
+          <button
+            onClick={scrollLeft}
+            className="p-3 bg-white shadow-lg border rounded-full hover:scale-110 transition"
           >
-            <ArrowForwardIosIcon
-              className=""
-              sx={{ transform: "rotate(-90deg)" }}
-            />
-          </Button>
-        )}
-
-        {activeIndex !== 0 && (
-          <Button
-            onClick={slidePrev}
-            variant="contained"
-            className="z-40 bg-[]"
-            color="white"
-            sx={{
-              position: "absolute",
-              top: "8rem",
-              left: "0rem",
-              transform: "translateX(-50%)  rotate(90deg)",
-            }}
-            aria-label="next"
+            <ArrowBackIosNewIcon fontSize="small" />
+          </button>
+          <button
+            onClick={scrollRight}
+            className="p-3 bg-white shadow-lg border rounded-full hover:scale-110 transition"
           >
-            <ArrowForwardIosIcon
-              className=""
-              sx={{ transform: " rotate(90deg)" }}
-            />
-          </Button>
-        )}
+            <ArrowForwardIosIcon fontSize="small" />
+          </button>
+        </div>
       </div>
-    </div>
+
+      <div
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scroll-smooth px-1 py-2"
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        {data?.slice(0, 15).map((product, index) => (
+          <div
+            key={index}
+            className="shrink-0"
+            style={{ scrollSnapAlign: "start" }}
+          >
+            <HomeProductCard product={product} />
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

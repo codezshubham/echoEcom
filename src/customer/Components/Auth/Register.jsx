@@ -1,239 +1,207 @@
-
-import { Grid, TextField, Button, Box, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Snackbar,
+  Alert,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  useMediaQuery,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, register } from "../../../Redux/Auth/Action";
-import { Fragment, useEffect, useState } from "react";
-import { useMediaQuery } from '@mui/material';
 
-export default function RegisterUserForm({ handleNext }) {
+export default function RegisterUserForm() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dispatch=useDispatch();
-  const [openSnackBar,setOpenSnackBar]=useState(false);
   const { auth } = useSelector((store) => store);
-  const handleClose=()=>setOpenSnackBar(false);
-  const isSmallScreen = useMediaQuery('(max-width:600px)');
-  const jwt=localStorage.getItem("jwt");
-
-useEffect(()=>{
-  if(jwt){
-    dispatch(getUser(jwt))
-  }
-},[jwt])
-
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMsg, setSnackBarMsg] = useState("");
+  const [snackBarType, setSnackBarType] = useState("success");
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
-    if (auth.user || auth.error) setOpenSnackBar(true)
-  }, [auth.user]);
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    const userData={
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-      role: data.get("role")
-      
+    if (jwt) dispatch(getUser(jwt));
+  }, [jwt, dispatch]);
+
+  useEffect(() => {
+    if (auth.error) {
+      setSnackBarMsg(auth.error);
+      setSnackBarType("error");
+      setOpenSnackBar(true);
+    } else if (auth.user) {
+      setSnackBarMsg("Registration successful!");
+      setSnackBarType("success");
+      setOpenSnackBar(true);
     }
-    console.log("user data",userData);
-    dispatch(register(userData))
-  
+  }, [auth]);
+
+  const handleClose = () => setOpenSnackBar(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    dispatch(
+      register({
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        password: data.get("password"),
+        role: data.get("role"),
+      })
+    );
   };
 
   return (
-//     <div className="" style={{ width: "100%"}}>
-//       <form onSubmit={handleSubmit}>
-//         <Grid container spacing={1}>
-//           <Grid item xs={12} sm={6}>
-//             <TextField
-//               required
-//               id="firstName"
-//               name="firstName"
-//               label="First Name"
-              
-//               autoComplete="given-name"
-//             />
-//           </Grid>
-//           <Grid item xs={12} sm={6}>
-//             <TextField
-//               required
-//               id="lastName"
-//               name="lastName"
-//               label="Last Name"
-              
-//               autoComplete="given-name"
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               required
-//               id="email"
-//               name="email"
-//               label="Email"
-//               fullWidth
-//               autoComplete="given-name"
-//             />
-//           </Grid>
-          
-//         <Grid item xs={12}>
-//         <FormControl fullWidth>
-//         <InputLabel id="demo-simple-select-label">Role</InputLabel>
-//         <Select
-//           labelId="demo-simple-select-label"
-//           id="demo-simple-select"
-//           label="Role"
-//           name="role"
-//         >
-//           <MenuItem value={"ROLE_ADMIN"}>Admin</MenuItem>
-//           <MenuItem value={"ROLE_CUSTOMER"}>Customer</MenuItem>
-//         </Select>
-//       </FormControl>
-//         </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               required
-//               id="password"
-//               name="password"
-//               label="Password"
-//               fullWidth
-//               autoComplete="given-name"
-//               type="password"
-//             />
-//           </Grid>
-
-//           <Grid item xs={12}>
-//             <Button
-//               className="bg-[#9155FD] w-full"
-//               type="submit"
-//               variant="contained"
-//               size="large"
-//               sx={{padding:".8rem 0"}}
-//             >
-//               Register
-//             </Button>
-//           </Grid>
-//         </Grid>
-//       </form>
-
-// <div className="flex justify-center flex-col items-center">
-//      <div className="py-3 flex items-center ">
-//         <p className="m-0 p-0">if you have already account ?</p>
-//         <Button onClick={()=> navigate("/login")} className="ml-5" size="small">
-//           Login
-//         </Button>
-//       </div>
-// </div>
-
-// <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleClose}>
-//         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-//           {auth.error?auth.error:auth.user?"Register Success":""}
-//         </Alert>
-//       </Snackbar>
-     
-//     </div>
-
-<div style={{ width: '90%', maxWidth: '600px', margin: '0 auto', padding: isSmallScreen ? '1rem' : '2rem' }}>
-<form onSubmit={handleSubmit}>
-  <Grid container spacing={2}>
-    {/* First Name Field */}
-    <Grid item xs={12} sm={6}>
-      <TextField
-        required
-        id="firstName"
-        name="firstName"
-        label="First Name"
-        fullWidth
-        autoComplete="given-name"
-      />
-    </Grid>
-    
-    {/* Last Name Field */}
-    <Grid item xs={12} sm={6}>
-      <TextField
-        required
-        id="lastName"
-        name="lastName"
-        label="Last Name"
-        fullWidth
-        autoComplete="family-name"
-      />
-    </Grid>
-
-    {/* Email Field */}
-    <Grid item xs={12}>
-      <TextField
-        required
-        id="email"
-        name="email"
-        label="Email"
-        fullWidth
-        autoComplete="email"
-      />
-    </Grid>
-    
-    {/* Role Field */}
-    <Grid item xs={12}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Role"
-          name="role"
-        >
-          <MenuItem value={"ROLE_ADMIN"}>Admin</MenuItem>
-          <MenuItem value={"ROLE_CUSTOMER"}>Customer</MenuItem>
-        </Select>
-      </FormControl>
-    </Grid>
-    
-    {/* Password Field */}
-    <Grid item xs={12}>
-      <TextField
-        required
-        id="password"
-        name="password"
-        label="Password"
-        fullWidth
-        type="password"
-        autoComplete="current-password"
-      />
-    </Grid>
-
-    {/* Register Button */}
-    <Grid item xs={12}>
-      <Button
-        className="bg-[#9155FD] w-full"
-        type="submit"
-        variant="contained"
-        size="large"
-        sx={{ padding: '.8rem 0' }}
+    <>
+      <Typography
+        variant="h5"
+        fontWeight={700}
+        color="primary"
+        mb={1}
+        textAlign="center"
       >
-        Register
-      </Button>
-    </Grid>
-  </Grid>
-</form>
+        Create Account
+      </Typography>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        mb={3}
+        textAlign="center"
+      >
+        Fill in your details below to get started.
+      </Typography>
 
-{/* Login Redirect */}
-<div className="flex justify-center flex-col items-center">
-  <div className="py-3 flex items-center">
-    <p className="m-0 p-0">Already have an account?</p>
-    <Button onClick={() => navigate("/login")} className="ml-5" size="small">
-      Login
-    </Button>
-  </div>
-</div>
+      <form onSubmit={handleSubmit} noValidate>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              name="firstName"
+              label="First Name"
+              variant="outlined"
+              autoComplete="given-name"
+              InputLabelProps={{ sx: { fontWeight: "600" } }}
+            />
+          </Grid>
 
-{/* Snackbar */}
-<Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleClose}>
-  <Alert onClose={handleClose} severity="success" sx={{ width: '90%' }}>
-    {auth.error ? auth.error : auth.user ? "Register Success" : ""}
-  </Alert>
-</Snackbar>
-</div>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              required
+              name="lastName"
+              label="Last Name"
+              variant="outlined"
+              autoComplete="family-name"
+              InputLabelProps={{ sx: { fontWeight: "600" } }}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              required
+              name="email"
+              label="Email Address"
+              variant="outlined"
+              type="email"
+              autoComplete="email"
+              InputLabelProps={{ sx: { fontWeight: "600" } }}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <FormControl fullWidth required variant="outlined">
+              <InputLabel id="role-label" sx={{ fontWeight: "600" }}>
+                Role
+              </InputLabel>
+              <Select
+                labelId="role-label"
+                name="role"
+                label="Role"
+                defaultValue=""
+                sx={{ textTransform: "capitalize" }}
+              >
+                <MenuItem value="ROLE_ADMIN">Admin</MenuItem>
+                <MenuItem value="ROLE_CUSTOMER">Customer</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              required
+              name="password"
+              label="Password"
+              variant="outlined"
+              type="password"
+              autoComplete="new-password"
+              InputLabelProps={{ sx: { fontWeight: "600" } }}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                background: "linear-gradient(90deg, #7b3fe4 0%, #9155fd 100%)",
+                fontWeight: "700",
+                fontSize: "1rem",
+                py: 1.2,
+                borderRadius: 2,
+                "&:hover": {
+                  background: "linear-gradient(90deg, #6a2ce4 0%, #7d3ffd 100%)",
+                },
+              }}
+            >
+              Register
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        mt={3}
+      >
+        Already have an account?{" "}
+        <Button
+          onClick={() => navigate("/login")}
+          size="small"
+          sx={{ textTransform: "none", fontWeight: 300, color: "primary.main" }}
+        >
+          Log In
+        </Button>
+      </Typography>
+
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={snackBarType}
+          variant="filled"
+          sx={{ width: "100%", fontWeight: "600" }}
+        >
+          {snackBarMsg}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
