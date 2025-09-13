@@ -1,84 +1,174 @@
-# E-Commerce Full Stack Project
+# Echoecom Backend Code Here :- https://github.com/codezshubham/EchoEcom-server
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# echoEcom
+
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)]()
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)]()
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)]()
 
 ## Description
 
-I have made this project with Angular + Spring Boot, React + Spring Boot, React + Nodejs
-
-A full-stack eCommerce application built with React and Spring Boot And Node Js. The project aims to provide users with a seamless online shopping experience, featuring a responsive and user-friendly interface, a wide range of products, and secure payment options.
-
-## Client
-###### Angular : https://github.com/developer207/ecommerce-angular
-
-## Server
-###### spring boot: https://github.com/ashok0001/e-commerce-server
-###### node js: https://github.com/ashok0001/ecommerce-node
+echoEcom is a comprehensive e-commerce web application built using React for the frontend and potentially other frameworks like Spring Boot and Node.js for the backend (based on the original README content). It provides users with a seamless online shopping experience, featuring a responsive interface and a variety of product categories.
 
 ## Table of Contents
 
 - [Features](#features)
-- [Demo](#demo)
-- [Technologies Used](#technologies-used)
+- [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
-- [API Endpoints](#api-endpoints)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
-- [Screenshots](#screenshots)
+- [Important Links](#important-links)
+- [Footer](#footer)
 
 ## Features
 
-- User registration and authentication.
-- Browse through a variety of products in different categories.
-- Add products to the cart and manage cart items.
-- Checkout process with various payment options.
-- Order history and tracking.
-- Admin panel to manage products, categories, and orders.
+-   🛍️ Browse a variety of products in different categories.
+-   🛒 Add products to the cart and manage cart items.
+-   ✅ Checkout process with payment options.
+-   📝 User registration and authentication.
+-   📦 Order history and tracking (likely).
+-   ⚙️ Admin panel to manage products, categories, and orders (likely).
+-   🔍 Product search functionality.
+-   ⭐ Customer reviews and ratings.
+-   📱 Responsive design for various devices.
 
-## Demo
+## Tech Stack
 
-[shopwithzosh](https://shopwithzosh.vercel.app/)
+### Frontend
 
-## Technologies Used
+-   [<img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB">](https://reactjs.org/) - A JavaScript library for building user interfaces.
+-   [<img src="https://img.shields.io/badge/Redux-593D88?style=flat-square&logo=redux&logoColor=white">](https://redux.js.org/) -  State management library.
+-   [<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white">](https://tailwindcss.com/) - CSS framework for styling.
+-   [<img src="https://img.shields.io/badge/Material%20UI-007BFF?style=flat-square&logo=mui&logoColor=white">](https://mui.com/) - React UI framework for faster and easier web development.
+-   **Other dependencies:** `@emotion/react`, `@emotion/styled`, `@headlessui/react`, `@heroicons/react`, `@mui/icons-material`, `@mui/material`, `axios`, `framer-motion`, `lucide-react`, `mdi-material-ui`, `react-alice-carousel`, `react-apexcharts`, `react-dom`, `react-icons`, `react-redux`, `react-router-dom`, `react-scripts`, `redux`, `redux-thunk`, `web-vitals`
 
-- Frontend:
-  - React: JavaScript library for building user interfaces.
-  - Redux: State management library for React applications.
-  - HTML/CSS: Markup and styling of the application.
-  - Axios: HTTP client for making API requests.
-  - MUI: CSS components library.
-  - Tailwind Css.
+### Backend (Potentially)
 
-- Backend:
-  - Spring Boot: Java framework for building robust and scalable backend applications.
-  - Spring Security: Authentication and authorization for the API endpoints.
-  - Spring Data JPA: Database access and ORM tool.
-  - MySQL : Database to store application data.
+-   **Spring Boot**: Java framework for building robust backend applications.
+-   **Node.js**: JavaScript runtime environment for the server-side.
+-   **MySQL**: Database to store application data.
 
 ## Installation
 
-1. Clone Frontend repository: `git clone https://github.com/ashok0001/e-commerce-server.git`
-2. Clone Backend Repository: `git clone https://github.com/ashok0001/e-commerce-server.git`
-3. Change directory Frontend:`cd shopwithzosh`
-4. Change directory Backend: `cd e-commerce-server`
-5. Install frontend dependencies: `npm install`
-6. Install backend dependencies
+1.  Clone the repository:
+
+    ```bash
+    git clone https://github.com/codezshubham/echoEcom.git
+    cd echoEcom
+    ```
+
+2.  Install frontend dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3.  Install backend dependencies (if applicable, navigate to backend directory first):
+
+    ```bash
+    # For Spring Boot (example)
+    # Use Maven or Gradle to manage dependencies
+    # For Node.js
+    npm install
+    ```
 
 ## Usage
 
-1. Start the frontend application: `npm start`
-2. Start the backend server:
-3. Access the application at `http://localhost:3000` in your web browser.
+1.  Start the frontend application:
 
-## API Endpoints
+    ```bash
+    npm start
+    ```
 
-List the available API endpoints along with their descriptions and the necessary request and response formats.
+2.  Start the backend server (if applicable):
 
-Example:
+    ```bash
+    # For Spring Boot
+    # Run the Spring Boot application
+    # For Node.js
+    npm start # or node server.js, depending on your setup
+    ```
 
-[Checkout All Endpoints Here...](https://e-commerce-server-production-0873.up.railway.app/swagger-ui/index.html)
+3.  Access the application at `http://localhost:3000` in your web browser.
+
+
+**Real world use cases of that project:**
+
+*   Setting up online store to sell products to customers.
+*   Building internal e-commerce platform for companies to manage the sales of their products,orders and customers.
+*   Creating custom e-commerce applications using React frontend and SpringBoot or Nodejs backend.
+
+
+**How to use the project:**
+
+*   To run the project you must clone the repositry.
+*   Install the dependencies using `npm install`
+*   Then start the app using `npm start`.
+*   Access the application at `http://localhost:3000`
+
+## Project Structure
+
+```
+├── README.md
+├── package.json
+├── tailwind.config.js
+├── public
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+├── src
+│   ├── App.js
+│   ├── index.js
+│   ├── App.css
+│   ├── config
+│   │   ├── api.js
+│   │   └── navigationMenu.js
+│   ├── Admin
+│   │   ├── AdminPannel.jsx
+│   │   ├── Navigation
+│   │   │   └── AdminNavbar.jsx
+│   │   ├── Views
+│   │   │   ├── Admin.jsx
+│   │   │   └── DemoAdmin.jsx
+│   │   ├── tables
+│   │   │   ├── Achivement.jsx
+│   │   │   ├── CustomersTable.jsx
+│   │   │   ├── MonthlyOverView.jsx
+│   │   │   ├── RecentOrders.jsx
+│   │   │   └── WeeklyOverview.jsx
+│   │   └── them
+│   │       └── customeThem.js
+│   ├── Customer
+│   │   ├── Components
+│   │   │   └── Navbar
+│   │   │       └── Navigation.jsx
+│   ├── Pages
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Homepage.jsx
+│   │   └── Notfound.jsx
+│   ├── Redux
+│   │   ├── Auth
+│   │   │   ├── Action.js
+│   │   │   ├── ActionTypes.js
+│   │   │   └── Reducer.js
+│   │   └── Store.js
+│   ├── Routers
+│   │   ├── AdminRoutes.jsx
+│   │   └── CustomerRoutes.jsx
+│   └── Styles
+│       └── AdminPannelWrapper.jsx
+└── ...
+```
+
+## API Reference
+
+API endpoints are configured in `src/config/api.js`. The application uses `axios` for making HTTP requests. The base URL can be either `http://localhost:5454` or a deployed URL. 
+
+Refer to the backend documentation (Spring Boot or Node.js) for specific API endpoints and their usage. The original README contains a swagger link that may no longer be valid.
 
 ## Contributing
 
@@ -88,42 +178,21 @@ Contributions are welcome! If you find any bugs or want to add new features, ple
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+## Important Links
 
-If you have any questions or suggestions, feel free to contact me:
+- Original Client Repo: https://github.com/developer207/ecommerce-angular
+- Original Spring Boot Server Repo: https://github.com/ashok0001/e-commerce-server
+- Original Node.js Server Repo: https://github.com/ashok0001/ecommerce-node
 
-- Ashok Zarmariya
-- ashokzarmariya47@gmail.com
-- [Linkedin](https://www.linkedin.com/in/ashok-zarmariya-473aa722a/)
+## Footer
 
-Feel free to customize the README to include more specific information about your project. Good luck with your eCommerce full-stack application!
+*   Repository: [echoEcom](https://github.com/codezshubham/echoEcom)
+*   Fork the Repository: [https://github.com/codezshubham/echoEcom](https://github.com/codezshubham/echoEcom)
+*   Author: codezshubham
+*   Contact:  Reach out through GitHub issues or pull requests.
 
-## ScreenShots
+Feel free to contribute, open issues, and give stars! ⭐
 
-### Home Carousel
-![Screenshot (120)](https://github.com/ashok0001/shopwithzosh/assets/93376968/a559ba7a-3350-41b8-9151-5813ad0b3597)
+---
 
-
-### Multi Product Carousel
-![Screenshot (121)](https://github.com/ashok0001/shopwithzosh/assets/93376968/089666de-bbfa-4218-876e-5dbe7306325c)
-
-
-### Products Page
-![Screenshot (119)](https://github.com/ashok0001/shopwithzosh/assets/93376968/4f200711-b90e-4324-bc74-5f7beb01125d)
-
-
-### Product Details Page
-![Screenshot (122)](https://github.com/ashok0001/shopwithzosh/assets/93376968/53f2b45d-3e49-4d58-9249-15e85bd7aca5)
-
-
-### Cart Page
-![Screenshot (123)](https://github.com/ashok0001/shopwithzosh/assets/93376968/50a05948-8f06-48eb-b526-d1ac62bdd3ca)
-
-
-### Add Shipping Address
-![Screenshot (100)](https://github.com/ashok0001/shopwithzosh/assets/93376968/c8354400-8fac-4ee6-b2d4-6c3b79d696c7)
-
-
-### Order Summery
-![Screenshot (101)](https://github.com/ashok0001/shopwithzosh/assets/93376968/2847231f-72ff-46de-9426-ded1e9133326)
-
+[This Readme generated by ReadmeCodeGen.](https://www.readmecodegen.com/)
